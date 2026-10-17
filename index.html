@@ -3,114 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ariharan Chandrasekeran — Software Developer</title>
-  <meta name="description" content="Portfolio of Ariharan Chandrasekeran — Full-Stack Engineer, AI Systems Integrator, and DSA Enthusiast. Navigating complex systems through elegant algorithms." />
-  <meta name="keywords" content="Ariharan Chandrasekeran, Software Developer, Full-Stack, AI, DSA, Portfolio" />
+  <title>Ariharan Chandrasekeran — Senior Full-Stack &amp; AI Engineer</title>
+  <meta name="description" content="Portfolio of Ariharan Chandrasekeran — Senior Full-Stack Engineer, AI Solutions Architect, and Systems Strategist." />
   <meta name="author" content="Ariharan Chandrasekeran" />
   <meta name="theme-color" content="#030708" />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- Matrix Rain Canvas -->
   <canvas id="matrix-canvas" aria-hidden="true"></canvas>
 
   <!-- Scanline Overlay -->
   <div class="scanline-overlay" aria-hidden="true"></div>
 
-  <!-- Sound Toggle -->
-  <button id="sound-toggle" class="sound-toggle" aria-label="Toggle sound effects" title="Toggle Sound">
-    <svg id="sound-icon-on" class="sound-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-    </svg>
-    <svg id="sound-icon-off" class="sound-icon hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-      <line x1="23" y1="9" x2="17" y2="15" />
-      <line x1="17" y1="9" x2="23" y2="15" />
-    </svg>
-  </button>
+  <!-- Hero Section -->
+  <main class="hero">
+    <div class="hero-grid">
 
-  <!-- Main Content -->
-  <main class="hero" id="hero">
+      <!-- ===== LEFT COLUMN ===== -->
+      <section class="hero-left" aria-label="Introduction">
 
-    <!-- Status Badge -->
-    <div class="status-badge" aria-label="System status: operational">
-      <span class="status-dot"></span>
-      <span class="status-text">[ SYSTEM OPERATIONAL ]</span>
-    </div>
-
-    <!-- Name -->
-    <h1 class="hero-name">
-      <span class="name-prefix">&gt;_</span>
-      <span class="name-glitch" data-text="Ariharan">Ariharan</span>
-      <br />
-      <span class="name-glitch surname" data-text="Chandrasekeran">Chandrasekeran</span>
-    </h1>
-
-    <!-- Typing Effect -->
-    <div class="typing-wrapper">
-      <span class="typing-label">role:</span>
-      <span class="typing-text" id="typing-text"></span>
-      <span class="typing-cursor">_</span>
-    </div>
-
-    <!-- Tagline -->
-    <p class="hero-tagline">
-      Navigating complex systems through elegant algorithms, intelligent AI workflows, and scalable full-stack architectures.
-    </p>
-
-    <!-- Action Buttons -->
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-primary" data-sound="click">
-        <span class="btn-icon">⟐</span> Explore Projects
-      </a>
-      <a href="#contact" class="btn btn-secondary" data-sound="click">
-        <span class="btn-icon">⟁</span> Initiate Contact
-      </a>
-      <a href="#" class="btn btn-outline" data-sound="click" title="Download Resume">
-        <span class="btn-icon">↓</span> Download Resume
-      </a>
-    </div>
-
-    <!-- Terminal Card -->
-    <div class="terminal-card">
-      <div class="terminal-header">
-        <div class="terminal-dots">
-          <span class="dot dot-red"></span>
-          <span class="dot dot-yellow"></span>
-          <span class="dot dot-green"></span>
+        <!-- Status Badge -->
+        <div class="status-badge">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="status-label">[ STATUS: SENIOR ARCHITECT OPERATIONAL ]</span>
         </div>
-        <span class="terminal-title">ariharan@matrix:~/profile</span>
-      </div>
-      <div class="terminal-body">
-        <pre id="terminal-code"><code>{
-  <span class="json-key">"developer"</span>: <span class="json-string">"Ariharan Chandrasekeran"</span>,
-  <span class="json-key">"title"</span>: <span class="json-string">"Software Developer"</span>,
-  <span class="json-key">"stack"</span>: {
-    <span class="json-key">"frontend"</span>: [<span class="json-string">"React"</span>, <span class="json-string">"Next.js"</span>, <span class="json-string">"TypeScript"</span>],
-    <span class="json-key">"backend"</span>: [<span class="json-string">"Node.js"</span>, <span class="json-string">"Python"</span>, <span class="json-string">"REST APIs"</span>],
-    <span class="json-key">"ai"</span>: [<span class="json-string">"LLM Integration"</span>, <span class="json-string">"RAG Pipelines"</span>, <span class="json-string">"Agents"</span>],
-    <span class="json-key">"dsa"</span>: [<span class="json-string">"Graphs"</span>, <span class="json-string">"Dynamic Programming"</span>, <span class="json-string">"Trees"</span>]
-  },
-  <span class="json-key">"status"</span>: <span class="json-string">"ready_to_deploy"</span>,
-  <span class="json-key">"passion"</span>: <span class="json-string">"Building systems that think."</span>
-}</code></pre>
-      </div>
-    </div>
 
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator" aria-hidden="true">
-      <span class="scroll-text">SCROLL DOWN</span>
-      <span class="scroll-arrow">⌄</span>
-    </div>
+        <!-- Name -->
+        <h1 class="hero-name">
+          <span class="name-line" data-text="Ariharan">Ariharan</span>
+          <span class="name-line" data-text="Chandrasekeran">Chandrasekeran</span>
+        </h1>
 
+        <!-- Typing Role -->
+        <div class="role-typing">
+          <span class="role-prompt">&gt;</span>
+          <span class="role-text" id="role-text"></span>
+          <span class="role-cursor" aria-hidden="true">█</span>
+        </div>
+
+        <!-- Summary -->
+        <p class="hero-summary">
+          Engineering robust, scalable enterprise systems from edge to core. Architecting elegant algorithms, integrating intelligent agentic AI, and designing cloud-native full-stack solutions.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary" id="btn-projects">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            Explore Projects
+          </a>
+          <a href="#contact" class="btn btn-outline" id="btn-contact">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Initiate Contact
+          </a>
+          <a href="#" class="btn btn-outline" id="btn-resume">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Resume
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== RIGHT COLUMN ===== -->
+      <aside class="hero-right" aria-label="Profile terminal">
+        <div class="terminal">
+
+          <!-- Terminal Chrome -->
+          <div class="terminal-chrome">
+            <div class="terminal-dots">
+              <span class="dot dot-close"></span>
+              <span class="dot dot-minimize"></span>
+              <span class="dot dot-expand"></span>
+            </div>
+            <span class="terminal-path">ariharan@matrix:~/$ profile</span>
+            <button class="copy-btn" id="copy-btn" aria-label="Copy JSON to clipboard" title="Copy JSON">
+              <svg id="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg id="check-icon" class="hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Terminal Body -->
+          <div class="terminal-body">
+            <pre class="terminal-code" id="terminal-code"><code><span class="t-brace">{</span>
+  <span class="t-key">"developer"</span><span class="t-colon">:</span> <span class="t-string">"Ariharan Chandrasekeran"</span><span class="t-comma">,</span>
+  <span class="t-key">"title"</span><span class="t-colon">:</span> <span class="t-string">"Senior Full-Stack &amp; AI Engineer"</span><span class="t-comma">,</span>
+  <span class="t-key">"experience"</span><span class="t-colon">:</span> <span class="t-string">"Senior Architect / Technical Lead"</span><span class="t-comma">,</span>
+  <span class="t-key">"stack"</span><span class="t-colon">:</span> <span class="t-brace">{</span>
+    <span class="t-key">"frontend"</span><span class="t-colon">:</span> <span class="t-bracket">[</span><span class="t-string">"React"</span><span class="t-comma">,</span> <span class="t-string">"Next.js"</span><span class="t-comma">,</span> <span class="t-string">"TypeScript"</span><span class="t-comma">,</span> <span class="t-string">"TailwindCSS"</span><span class="t-bracket">]</span><span class="t-comma">,</span>
+    <span class="t-key">"backend"</span><span class="t-colon">:</span> <span class="t-bracket">[</span><span class="t-string">"Node.js"</span><span class="t-comma">,</span> <span class="t-string">"Python"</span><span class="t-comma">,</span> <span class="t-string">"Go"</span><span class="t-comma">,</span> <span class="t-string">"GraphQL"</span><span class="t-comma">,</span> <span class="t-string">"gRPC"</span><span class="t-bracket">]</span><span class="t-comma">,</span>
+    <span class="t-key">"ai_ml"</span><span class="t-colon">:</span> <span class="t-bracket">[</span><span class="t-string">"LLM Pipelines"</span><span class="t-comma">,</span> <span class="t-string">"RAG Systems"</span><span class="t-comma">,</span> <span class="t-string">"AI Agents"</span><span class="t-comma">,</span> <span class="t-string">"LangChain"</span><span class="t-bracket">]</span><span class="t-comma">,</span>
+    <span class="t-key">"dsa_core"</span><span class="t-colon">:</span> <span class="t-bracket">[</span><span class="t-string">"Graph Theory"</span><span class="t-comma">,</span> <span class="t-string">"Dynamic Programming"</span><span class="t-comma">,</span> <span class="t-string">"System Architecture"</span><span class="t-bracket">]</span>
+  <span class="t-brace">}</span><span class="t-comma">,</span>
+  <span class="t-key">"status"</span><span class="t-colon">:</span> <span class="t-string">"Ready for Mission-Critical Deployment"</span>
+<span class="t-brace">}</span></code></pre>
+          </div>
+        </div>
+      </aside>
+
+    </div>
   </main>
 
   <script src="script.js"></script>

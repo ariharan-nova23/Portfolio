@@ -1,5 +1,6 @@
 /* ============================================
-   MATRIX PORTFOLIO — Main Script
+   MATRIX PORTFOLIO — Script
+   No audio. No settings. Pure function.
    ============================================ */
 
 (function () {
@@ -10,55 +11,65 @@
   // ==========================================
   const MatrixRain = (() => {
     const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return { init() {} };
     const ctx = canvas.getContext('2d');
 
-    // Matrix-style characters: katakana, latin, digits, symbols
     const chars =
       'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' +
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:<>?/~';
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' +
+      '01001101110100110101';
     const charArray = chars.split('');
 
     let columns = 0;
     let drops = [];
     let fontSize = 14;
+    let animId = null;
+    let lastTime = 0;
+    const FRAME_INTERVAL = 45; // ms between frames
 
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       fontSize = window.innerWidth < 480 ? 10 : 14;
-      columns = Math.floor(canvas.width / fontSize);
+      const newColumns = Math.floor(canvas.width / fontSize);
 
-      // Preserve existing drop positions or initialize
       const newDrops = [];
-      for (let i = 0; i < columns; i++) {
-        newDrops[i] = drops[i] !== undefined ? drops[i] : Math.random() * -100;
+      for (let i = 0; i < newColumns; i++) {
+        newDrops[i] = drops[i] !== undefined ? drops[i] : Math.random() * -80;
       }
+      columns = newColumns;
       drops = newDrops;
     }
 
-    function draw() {
-      // Slight fade for trail effect
-      ctx.fillStyle = 'rgba(3, 7, 8, 0.06)';
+    function draw(timestamp) {
+      animId = requestAnimationFrame(draw);
+
+      if (timestamp - lastTime < FRAME_INTERVAL) return;
+      lastTime = timestamp;
+
+      // Trail fade
+      ctx.fillStyle = 'rgba(3, 7, 8, 0.055)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
 
       for (let i = 0; i < columns; i++) {
         const char = charArray[Math.floor(Math.random() * charArray.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Brightest character at the head
-        const brightness = 0.3 + Math.random() * 0.3;
-        ctx.fillStyle = `rgba(0, 255, 102, ${brightness})`;
-        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+        // Normal green character
+        const alpha = 0.25 + Math.random() * 0.25;
+        ctx.fillStyle = `rgba(0, 255, 102, ${alpha})`;
         ctx.fillText(char, x, y);
 
-        // Leading bright character
-        if (Math.random() > 0.97) {
-          ctx.fillStyle = 'rgba(180, 255, 200, 0.9)';
+        // Occasional bright head character
+        if (Math.random() > 0.975) {
+          ctx.fillStyle = 'rgba(180, 255, 210, 0.85)';
           ctx.fillText(char, x, y);
         }
 
-        // Reset drop randomly
+        // Reset column
         if (y > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
@@ -69,7 +80,7 @@
     function init() {
       resize();
       window.addEventListener('resize', resize);
-      setInterval(draw, 45);
+      animId = requestAnimationFrame(draw);
     }
 
     return { init };
@@ -79,155 +90,126 @@
   // 2. TYPING EFFECT
   // ==========================================
   const TypingEffect = (() => {
-    const element = document.getElementById('typing-text');
+    const el = document.getElementById('role-text');
+    if (!el) return { init() {} };
+
     const roles = [
-      'Full-Stack Engineer',
-      'AI Systems Integrator',
-      'DSA Enthusiast',
-      'Software Developer',
+      'Senior Full-Stack Engineer',
+      'AI Solutions Architect',
+      'DSA & Systems Strategist',
     ];
 
-    let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let timeoutId = null;
+    let roleIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
 
-    const TYPING_SPEED = 80;
-    const DELETING_SPEED = 45;
-    const PAUSE_AFTER_TYPE = 2200;
-    const PAUSE_AFTER_DELETE = 400;
+    const SPEED_TYPE   = 70;
+    const SPEED_DELETE = 40;
+    const PAUSE_FULL   = 2400;
+    const PAUSE_EMPTY  = 350;
 
     function tick() {
-      const currentRole = roles[roleIndex];
+      const role = roles[roleIdx];
 
-      if (!isDeleting) {
-        // Typing forward
-        charIndex++;
-        element.textContent = currentRole.substring(0, charIndex);
+      if (!deleting) {
+        charIdx++;
+        el.textContent = role.substring(0, charIdx);
 
-        if (charIndex === currentRole.length) {
-          // Finished typing — pause then delete
-          isDeleting = true;
-          timeoutId = setTimeout(tick, PAUSE_AFTER_TYPE);
+        if (charIdx === role.length) {
+          deleting = true;
+          setTimeout(tick, PAUSE_FULL);
           return;
         }
-        timeoutId = setTimeout(tick, TYPING_SPEED + Math.random() * 40);
+        setTimeout(tick, SPEED_TYPE + Math.random() * 35);
       } else {
-        // Deleting
-        charIndex--;
-        element.textContent = currentRole.substring(0, charIndex);
+        charIdx--;
+        el.textContent = role.substring(0, charIdx);
 
-        if (charIndex === 0) {
-          isDeleting = false;
-          roleIndex = (roleIndex + 1) % roles.length;
-          timeoutId = setTimeout(tick, PAUSE_AFTER_DELETE);
+        if (charIdx === 0) {
+          deleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(tick, PAUSE_EMPTY);
           return;
         }
-        timeoutId = setTimeout(tick, DELETING_SPEED);
+        setTimeout(tick, SPEED_DELETE);
       }
     }
 
     function init() {
-      // Start after a small delay for the entrance animation
-      setTimeout(tick, 1200);
+      setTimeout(tick, 1000);
     }
 
     return { init };
   })();
 
   // ==========================================
-  // 3. WEB AUDIO — Sound Effects
+  // 3. TERMINAL LINE-BY-LINE REVEAL
   // ==========================================
-  const SoundEngine = (() => {
-    let audioCtx = null;
-    let enabled = false;
-
-    function getContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      return audioCtx;
-    }
-
-    function playClick() {
-      if (!enabled) return;
-      try {
-        const ctx = getContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(800, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.08);
-
-        gain.gain.setValueAtTime(0.06, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
-
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.12);
-      } catch (e) {
-        // Silent fail
-      }
-    }
-
-    function playBeep() {
-      if (!enabled) return;
-      try {
-        const ctx = getContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1200, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.06);
-
-        gain.gain.setValueAtTime(0.04, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-
-        osc.start(ctx.currentTime);
-        osc.stop(ctx.currentTime + 0.1);
-      } catch (e) {
-        // Silent fail
-      }
-    }
-
-    function toggle() {
-      enabled = !enabled;
-
-      const iconOn = document.getElementById('sound-icon-on');
-      const iconOff = document.getElementById('sound-icon-off');
-
-      if (enabled) {
-        iconOn.classList.remove('hidden');
-        iconOff.classList.add('hidden');
-        // Resume context if suspended
-        const ctx = getContext();
-        if (ctx.state === 'suspended') ctx.resume();
-        playBeep();
-      } else {
-        iconOn.classList.add('hidden');
-        iconOff.classList.remove('hidden');
-      }
-    }
+  const TerminalReveal = (() => {
+    const codeEl = document.getElementById('terminal-code');
+    if (!codeEl) return { init() {} };
 
     function init() {
-      const toggleBtn = document.getElementById('sound-toggle');
-      toggleBtn.addEventListener('click', toggle);
+      const fullHTML = codeEl.innerHTML;
+      codeEl.innerHTML = '';
 
-      // Attach click sounds to all [data-sound] elements
-      document.querySelectorAll('[data-sound]').forEach((el) => {
-        el.addEventListener('click', () => {
-          playClick();
-        });
-        el.addEventListener('mouseenter', () => {
-          playBeep();
-        });
+      setTimeout(() => {
+        const lines = fullHTML.split('\n');
+        let i = 0;
+
+        function next() {
+          if (i < lines.length) {
+            codeEl.innerHTML += (i > 0 ? '\n' : '') + lines[i];
+            i++;
+            setTimeout(next, 50 + Math.random() * 25);
+          }
+        }
+
+        next();
+      }, 900);
+    }
+
+    return { init };
+  })();
+
+  // ==========================================
+  // 4. COPY JSON BUTTON
+  // ==========================================
+  const CopyJSON = (() => {
+    const btn = document.getElementById('copy-btn');
+    if (!btn) return { init() {} };
+
+    const jsonData = JSON.stringify({
+      developer: "Ariharan Chandrasekeran",
+      title: "Senior Full-Stack & AI Engineer",
+      experience: "Senior Architect / Technical Lead",
+      stack: {
+        frontend: ["React", "Next.js", "TypeScript", "TailwindCSS"],
+        backend: ["Node.js", "Python", "Go", "GraphQL", "gRPC"],
+        ai_ml: ["LLM Pipelines", "RAG Systems", "AI Agents", "LangChain"],
+        dsa_core: ["Graph Theory", "Dynamic Programming", "System Architecture"]
+      },
+      status: "Ready for Mission-Critical Deployment"
+    }, null, 2);
+
+    function init() {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(jsonData);
+
+          const copyIcon = document.getElementById('copy-icon');
+          const checkIcon = document.getElementById('check-icon');
+
+          copyIcon.classList.add('hidden');
+          checkIcon.classList.remove('hidden');
+
+          setTimeout(() => {
+            checkIcon.classList.add('hidden');
+            copyIcon.classList.remove('hidden');
+          }, 1800);
+        } catch (e) {
+          // Clipboard API may fail in some contexts — silent fail
+        }
       });
     }
 
@@ -235,82 +217,25 @@
   })();
 
   // ==========================================
-  // 4. TERMINAL REVEAL ANIMATION
+  // 5. SUBTLE PARALLAX — Mouse reactive name
   // ==========================================
-  const TerminalReveal = (() => {
+  const Parallax = (() => {
     function init() {
-      const codeEl = document.getElementById('terminal-code');
-      if (!codeEl) return;
+      if (!window.matchMedia('(hover: hover)').matches) return;
 
-      const fullHTML = codeEl.innerHTML;
-      codeEl.innerHTML = '';
-      codeEl.style.opacity = '1';
+      const name = document.querySelector('.hero-name');
+      const terminal = document.querySelector('.terminal');
+      if (!name) return;
 
-      // Wait for entrance animation, then reveal line by line
-      setTimeout(() => {
-        const lines = fullHTML.split('\n');
-        let currentLine = 0;
+      document.addEventListener('mousemove', (e) => {
+        const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+        const cy = (e.clientY / window.innerHeight - 0.5) * 2;
 
-        function revealLine() {
-          if (currentLine < lines.length) {
-            codeEl.innerHTML += (currentLine > 0 ? '\n' : '') + lines[currentLine];
-            currentLine++;
-            setTimeout(revealLine, 60 + Math.random() * 30);
-          }
+        name.style.transform = `translate(${cx * 4}px, ${cy * 2.5}px)`;
+
+        if (terminal) {
+          terminal.style.transform = `translateY(${-4 + cy * -3}px) rotateY(${cx * -1.5}deg) rotateX(${cy * 1}deg)`;
         }
-
-        revealLine();
-      }, 1600);
-    }
-
-    return { init };
-  })();
-
-  // ==========================================
-  // 5. PARALLAX GLOW (mouse-reactive)
-  // ==========================================
-  const ParallaxGlow = (() => {
-    function init() {
-      const hero = document.getElementById('hero');
-      if (!hero) return;
-
-      // Only on non-touch devices
-      if (window.matchMedia('(hover: hover)').matches) {
-        document.addEventListener('mousemove', (e) => {
-          const x = (e.clientX / window.innerWidth - 0.5) * 2;
-          const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-          hero.style.setProperty('--mouse-x', `${e.clientX}px`);
-          hero.style.setProperty('--mouse-y', `${e.clientY}px`);
-
-          // Subtle parallax on name
-          const name = hero.querySelector('.hero-name');
-          if (name) {
-            name.style.transform = `translate(${x * 3}px, ${y * 2}px)`;
-          }
-        });
-      }
-    }
-
-    return { init };
-  })();
-
-  // ==========================================
-  // 6. SMOOTH SCROLL for anchor links
-  // ==========================================
-  const SmoothScroll = (() => {
-    function init() {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          const targetId = anchor.getAttribute('href');
-          if (targetId === '#') return;
-          
-          const target = document.querySelector(targetId);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
       });
     }
 
@@ -323,9 +248,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     MatrixRain.init();
     TypingEffect.init();
-    SoundEngine.init();
     TerminalReveal.init();
-    ParallaxGlow.init();
-    SmoothScroll.init();
+    CopyJSON.init();
+    Parallax.init();
   });
 })();
