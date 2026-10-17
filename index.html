@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ariharan Chandrasekeran — Software Developer</title>
+  <meta name="description" content="Portfolio of Ariharan Chandrasekeran — Full-Stack Engineer, AI Systems Integrator, and DSA Enthusiast. Navigating complex systems through elegant algorithms." />
+  <meta name="keywords" content="Ariharan Chandrasekeran, Software Developer, Full-Stack, AI, DSA, Portfolio" />
+  <meta name="author" content="Ariharan Chandrasekeran" />
+  <meta name="theme-color" content="#030708" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Matrix Rain Canvas -->
+  <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+
+  <!-- Scanline Overlay -->
+  <div class="scanline-overlay" aria-hidden="true"></div>
+
+  <!-- Sound Toggle -->
+  <button id="sound-toggle" class="sound-toggle" aria-label="Toggle sound effects" title="Toggle Sound">
+    <svg id="sound-icon-on" class="sound-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+    </svg>
+    <svg id="sound-icon-off" class="sound-icon hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <line x1="23" y1="9" x2="17" y2="15" />
+      <line x1="17" y1="9" x2="23" y2="15" />
+    </svg>
+  </button>
+
+  <!-- Main Content -->
+  <main class="hero" id="hero">
+
+    <!-- Status Badge -->
+    <div class="status-badge" aria-label="System status: operational">
+      <span class="status-dot"></span>
+      <span class="status-text">[ SYSTEM OPERATIONAL ]</span>
+    </div>
+
+    <!-- Name -->
+    <h1 class="hero-name">
+      <span class="name-prefix">&gt;_</span>
+      <span class="name-glitch" data-text="Ariharan">Ariharan</span>
+      <br />
+      <span class="name-glitch surname" data-text="Chandrasekeran">Chandrasekeran</span>
+    </h1>
+
+    <!-- Typing Effect -->
+    <div class="typing-wrapper">
+      <span class="typing-label">role:</span>
+      <span class="typing-text" id="typing-text"></span>
+      <span class="typing-cursor">_</span>
+    </div>
+
+    <!-- Tagline -->
+    <p class="hero-tagline">
+      Navigating complex systems through elegant algorithms, intelligent AI workflows, and scalable full-stack architectures.
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary" data-sound="click">
+        <span class="btn-icon">⟐</span> Explore Projects
+      </a>
+      <a href="#contact" class="btn btn-secondary" data-sound="click">
+        <span class="btn-icon">⟁</span> Initiate Contact
+      </a>
+      <a href="#" class="btn btn-outline" data-sound="click" title="Download Resume">
+        <span class="btn-icon">↓</span> Download Resume
+      </a>
+    </div>
+
+    <!-- Terminal Card -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <span class="terminal-title">ariharan@matrix:~/profile</span>
+      </div>
+      <div class="terminal-body">
+        <pre id="terminal-code"><code>{
+  <span class="json-key">"developer"</span>: <span class="json-string">"Ariharan Chandrasekeran"</span>,
+  <span class="json-key">"title"</span>: <span class="json-string">"Software Developer"</span>,
+  <span class="json-key">"stack"</span>: {
+    <span class="json-key">"frontend"</span>: [<span class="json-string">"React"</span>, <span class="json-string">"Next.js"</span>, <span class="json-string">"TypeScript"</span>],
+    <span class="json-key">"backend"</span>: [<span class="json-string">"Node.js"</span>, <span class="json-string">"Python"</span>, <span class="json-string">"REST APIs"</span>],
+    <span class="json-key">"ai"</span>: [<span class="json-string">"LLM Integration"</span>, <span class="json-string">"RAG Pipelines"</span>, <span class="json-string">"Agents"</span>],
+    <span class="json-key">"dsa"</span>: [<span class="json-string">"Graphs"</span>, <span class="json-string">"Dynamic Programming"</span>, <span class="json-string">"Trees"</span>]
+  },
+  <span class="json-key">"status"</span>: <span class="json-string">"ready_to_deploy"</span>,
+  <span class="json-key">"passion"</span>: <span class="json-string">"Building systems that think."</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-text">SCROLL DOWN</span>
+      <span class="scroll-arrow">⌄</span>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
