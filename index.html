@@ -113,98 +113,122 @@
   <section class="skills-section" id="skills" aria-labelledby="skills-title">
     <div class="skills-container">
       <header class="skills-header">
-        <p class="skills-eyebrow">[ SYSTEM_CAPABILITIES // TECH_CORE ]</p>
+        <p class="skills-eyebrow">[ SYSTEM_CAPABILITIES // FULL_STACK_ENGINEERING ]</p>
         <h2 class="skills-title" id="skills-title">SKILLS &amp; <span>TECH STACK</span></h2>
         <p class="skills-hint">[ SELECT A NODE TO RUN TELEMETRY INSPECTION ]</p>
       </header>
 
       <div class="skills-grid">
-        <section class="skill-module" aria-labelledby="languages-title">
-          <h3 class="module-heading" id="languages-title"><span>01</span> LANGUAGES &amp; CORE CS</h3>
+        <section class="skill-module" aria-labelledby="backend-title">
+          <h3 class="module-heading" id="backend-title"><span>01</span> BACKEND &amp; APIS</h3>
           <div class="module-nodes">
             <button class="skill-node is-selected" type="button" aria-pressed="true"
-              data-name="C" data-category="LANGUAGES &amp; CORE CS" data-tag="SYSTEMS / MEMORY"
-              data-details="Use C to reason about memory, pointers, and low-level system behavior, building a strong foundation for efficient software.">
-              <img src="https://cdn.simpleicons.org/C/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">C</span><span class="node-tag">SYSTEMS / MEMORY</span>
+              data-name="Node.js &amp; Express.js" data-category="BACKEND &amp; APIS" data-tag="RESTFUL APIS / ASYNC RUNTIME"
+              data-details="Build production RESTful APIs with Express.js on Node.js, using its asynchronous runtime to handle concurrent requests and integrate backend services.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/nodedotjs/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/express/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Node.js &amp; Express.js</span><span class="node-tag">RESTFUL APIS / ASYNC RUNTIME</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="C++" data-category="LANGUAGES &amp; CORE CS" data-tag="LOW-LEVEL / OOP"
-              data-details="Use C++ to apply object-oriented and low-level programming concepts when building efficient, performance-conscious solutions.">
-              <img src="https://cdn.simpleicons.org/cplusplus/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">C++</span><span class="node-tag">LOW-LEVEL / OOP</span>
+              data-name="Java" data-category="BACKEND &amp; APIS" data-tag="ENTERPRISE OOP / ARCHITECTURE"
+              data-details="Apply Java object-oriented design and established backend patterns to organize maintainable, reliable enterprise application services.">
+              <span class="node-logos"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Java</span><span class="node-tag">ENTERPRISE OOP / ARCHITECTURE</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="Java" data-category="LANGUAGES &amp; CORE CS" data-tag="OBJECT-ORIENTED"
-              data-details="Use Java to structure object-oriented programs with clear types and reusable components.">
-              <img src="https://cdn.simpleicons.org/java/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">Java</span><span class="node-tag">OBJECT-ORIENTED</span>
+              data-name="REST APIs &amp; WebSockets" data-category="BACKEND &amp; APIS" data-tag="CLIENT-SERVER / REAL-TIME"
+              data-details="Design REST endpoints for predictable client-server data exchange and use WebSockets when a feature needs persistent, real-time communication.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/openapiinitiative/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/socketdotio/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">REST APIs &amp; WebSockets</span><span class="node-tag">CLIENT-SERVER / REAL-TIME</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="JavaScript" data-category="LANGUAGES &amp; CORE CS" data-tag="WEB / APPLICATION LOGIC"
-              data-details="Use JavaScript to implement interactive application behavior and connect client-side interfaces to runtime services.">
-              <img src="https://cdn.simpleicons.org/javascript/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">JavaScript</span><span class="node-tag">WEB / APP LOGIC</span>
+              data-name="Auth &amp; Security" data-category="BACKEND &amp; APIS" data-tag="JWT / OAUTH"
+              data-details="Secure backend routes by applying JWT-based authentication and OAuth authorization flows, validating identity and access before protected operations.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/jsonwebtokens/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Auth &amp; Security</span><span class="node-tag">JWT / OAUTH</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="skill-module" aria-labelledby="database-title">
+          <h3 class="module-heading" id="database-title"><span>02</span> DATABASE &amp; STORAGE</h3>
+          <div class="module-nodes">
+            <button class="skill-node" type="button" aria-pressed="false"
+              data-name="PostgreSQL / MySQL" data-category="DATABASE &amp; STORAGE" data-tag="RELATIONAL / SQL / INDEXING"
+              data-details="Model relational data with PostgreSQL or MySQL, using SQL schemas and indexes to support consistent queries and efficient access patterns.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/postgresql/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/mysql/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">PostgreSQL / MySQL</span><span class="node-tag">RELATIONAL / SQL / INDEXING</span>
+            </button>
+            <button class="skill-node" type="button" aria-pressed="false"
+              data-name="MongoDB" data-category="DATABASE &amp; STORAGE" data-tag="NOSQL / DOCUMENT STORE"
+              data-details="Use MongoDB's document model to store and retrieve application data when flexible, nested records fit the domain.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/mongodb/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">MongoDB</span><span class="node-tag">NOSQL / DOCUMENT STORE</span>
+            </button>
+            <button class="skill-node" type="button" aria-pressed="false"
+              data-name="Redis" data-category="DATABASE &amp; STORAGE" data-tag="IN-MEMORY / HIGH THROUGHPUT"
+              data-details="Use Redis as an in-memory cache to reduce repeat database work and serve frequently requested data at high throughput.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/redis/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Redis</span><span class="node-tag">IN-MEMORY / HIGH THROUGHPUT</span>
             </button>
           </div>
         </section>
 
         <section class="skill-module" aria-labelledby="frontend-title">
-          <h3 class="module-heading" id="frontend-title"><span>02</span> FRONTEND ARCHITECTURE</h3>
+          <h3 class="module-heading" id="frontend-title"><span>03</span> FRONTEND ARCHITECTURE</h3>
           <div class="module-nodes">
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="HTML5" data-category="FRONTEND ARCHITECTURE" data-tag="DOCUMENT STRUCTURE"
-              data-details="Use semantic HTML5 to give interfaces a clear, accessible document structure that browsers and assistive technologies can interpret.">
-              <img src="https://cdn.simpleicons.org/html5/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">HTML5</span><span class="node-tag">DOCUMENT STRUCTURE</span>
+              data-name="React.js" data-category="FRONTEND ARCHITECTURE" data-tag="VIRTUAL DOM / REACTIVE STATE"
+              data-details="Build component-driven interfaces in React.js, coordinating reactive state updates with the virtual DOM to keep UI behavior predictable.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/react/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">React.js</span><span class="node-tag">VIRTUAL DOM / REACTIVE STATE</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="CSS3" data-category="FRONTEND ARCHITECTURE" data-tag="VISUAL SYSTEMS"
-              data-details="Use CSS3 to build responsive layouts, define visual systems, and bring polished interface designs to life.">
-              <img src="https://cdn.simpleicons.org/css3/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">CSS3</span><span class="node-tag">VISUAL SYSTEMS</span>
+              data-name="JavaScript (ES6+)" data-category="FRONTEND ARCHITECTURE" data-tag="EVENT LOOP / ASYNC-AWAIT"
+              data-details="Use modern JavaScript, the event loop, and async/await to orchestrate asynchronous browser behavior and application data flows.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/javascript/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">JavaScript (ES6+)</span><span class="node-tag">EVENT LOOP / ASYNC-AWAIT</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
               data-name="Tailwind CSS" data-category="FRONTEND ARCHITECTURE" data-tag="UTILITY-FIRST STYLING"
-              data-details="Use Tailwind CSS utility classes to compose consistent, responsive interface styles directly alongside component markup.">
-              <img src="https://cdn.simpleicons.org/tailwindcss/00FF66" alt="" loading="lazy" decoding="async">
+              data-details="Compose consistent, responsive interface styles with Tailwind CSS utility classes directly alongside component markup.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/tailwindcss/00FF66" alt="" loading="lazy" decoding="async"></span>
               <span class="node-name">Tailwind CSS</span><span class="node-tag">UTILITY-FIRST STYLING</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="React" data-category="FRONTEND ARCHITECTURE" data-tag="VIRTUAL DOM ENGINE"
-              data-details="Use React to compose reusable UI components and render interactive interfaces from application state.">
-              <img src="https://cdn.simpleicons.org/react/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">React</span><span class="node-tag">VIRTUAL DOM ENGINE</span>
-            </button>
-          </div>
-        </section>
-
-        <section class="skill-module" aria-labelledby="backend-title">
-          <h3 class="module-heading" id="backend-title"><span>03</span> BACKEND &amp; RUNTIME</h3>
-          <div class="module-nodes">
-            <button class="skill-node" type="button" aria-pressed="false"
-              data-name="Node.js" data-category="BACKEND &amp; RUNTIME" data-tag="SERVER-SIDE RUNTIME"
-              data-details="Use Node.js to run JavaScript on the server and build runtime services that support application features.">
-              <img src="https://cdn.simpleicons.org/nodedotjs/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">Node.js</span><span class="node-tag">SERVER-SIDE RUNTIME</span>
+              data-name="HTML5 &amp; CSS3" data-category="FRONTEND ARCHITECTURE" data-tag="SEMANTIC DOM / CUSTOM ANIMATIONS"
+              data-details="Structure accessible interfaces with semantic HTML5 and style responsive layouts and custom animations with CSS3.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/html5/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">HTML5 &amp; CSS3</span><span class="node-tag">SEMANTIC DOM / ANIMATIONS</span>
             </button>
           </div>
         </section>
 
         <section class="skill-module" aria-labelledby="tools-title">
-          <h3 class="module-heading" id="tools-title"><span>04</span> DEVELOPER TOOLS</h3>
+          <h3 class="module-heading" id="tools-title"><span>04</span> CS CORE, DEVOPS &amp; TOOLS</h3>
           <div class="module-nodes">
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="Git" data-category="DEVELOPER TOOLS" data-tag="VERSION CONTROL"
-              data-details="Use Git to track code changes, manage development branches, and keep project history organized.">
-              <img src="https://cdn.simpleicons.org/git/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">Git</span><span class="node-tag">VERSION CONTROL</span>
+              data-name="C / C++" data-category="CS CORE, DEVOPS &amp; TOOLS" data-tag="SYSTEMS / MEMORY / DSA"
+              data-details="Use C and C++ to understand low-level systems, reason about memory, and practice data structures and algorithms.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/c/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/cplusplus/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">C / C++</span><span class="node-tag">SYSTEMS / MEMORY / DSA</span>
             </button>
             <button class="skill-node" type="button" aria-pressed="false"
-              data-name="GitHub" data-category="DEVELOPER TOOLS" data-tag="CODE COLLABORATION"
-              data-details="Use GitHub to host repositories and collaborate around shared code and project changes.">
-              <img src="https://cdn.simpleicons.org/github/00FF66" alt="" loading="lazy" decoding="async">
-              <span class="node-name">GitHub</span><span class="node-tag">CODE COLLABORATION</span>
+              data-name="Git &amp; GitHub" data-category="CS CORE, DEVOPS &amp; TOOLS" data-tag="VERSION CONTROL / CI/CD"
+              data-details="Track work with Git branches and shared GitHub repositories, using collaboration and CI/CD pipelines to support reliable code delivery.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/git/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/github/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Git &amp; GitHub</span><span class="node-tag">VERSION CONTROL / CI/CD</span>
+            </button>
+            <button class="skill-node" type="button" aria-pressed="false"
+              data-name="Docker" data-category="CS CORE, DEVOPS &amp; TOOLS" data-tag="CONTAINERS / DEPLOYMENT ISOLATION"
+              data-details="Package services and their runtime dependencies into Docker containers to make development and deployment environments more reproducible.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/docker/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Docker</span><span class="node-tag">CONTAINERS / DEPLOYMENT</span>
+            </button>
+            <button class="skill-node" type="button" aria-pressed="false"
+              data-name="Linux / Bash" data-category="CS CORE, DEVOPS &amp; TOOLS" data-tag="SHELL / SERVER OPERATIONS"
+              data-details="Use Linux command-line tools and Bash scripts to automate routine tasks, inspect services, and operate backend environments.">
+              <span class="node-logos"><img src="https://cdn.simpleicons.org/linux/00FF66" alt="" loading="lazy" decoding="async"><img src="https://cdn.simpleicons.org/gnubash/00FF66" alt="" loading="lazy" decoding="async"></span>
+              <span class="node-name">Linux / Bash</span><span class="node-tag">SHELL / SERVER OPERATIONS</span>
             </button>
           </div>
         </section>
@@ -219,12 +243,12 @@
         <div class="telemetry-body" aria-live="polite" aria-atomic="true">
           <div class="telemetry-selection">
             <p class="telemetry-label">SELECTED NODE</p>
-            <h4 id="telemetry-name">C</h4>
-            <span class="telemetry-category" id="telemetry-category">LANGUAGES &amp; CORE CS</span>
+            <h4 id="telemetry-name">Node.js &amp; Express.js</h4>
+            <span class="telemetry-category" id="telemetry-category">BACKEND &amp; APIS</span>
           </div>
           <div class="telemetry-details">
             <p class="telemetry-label">EXECUTION PROFILE</p>
-            <p id="telemetry-description">Use C to reason about memory, pointers, and low-level system behavior, building a strong foundation for efficient software.</p>
+            <p id="telemetry-description">Build production RESTful APIs with Express.js on Node.js, using its asynchronous runtime to handle concurrent requests and integrate backend services.</p>
           </div>
         </div>
         <div class="telemetry-status">[ STATUS: OPTIMIZED FOR PRODUCTION ]</div>
