@@ -10,9 +10,7 @@
   // 1. MATRIX RAIN — Canvas Background
   // ==========================================
   const MatrixRain = (() => {
-    const canvas = document.getElementById('matrix-canvas');
-    if (!canvas) return { init() {} };
-    const ctx = canvas.getContext('2d');
+    const canvases = document.querySelectorAll('#matrix-canvas, .skills-rain-canvas');
 
     const chars =
       'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' +
@@ -20,67 +18,71 @@
       '01001101110100110101';
     const charArray = chars.split('');
 
-    let columns = 0;
-    let drops = [];
-    let fontSize = 14;
-    let animId = null;
-    let lastTime = 0;
-    const FRAME_INTERVAL = 45; // ms between frames
+    function createRain(canvas) {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      fontSize = window.innerWidth < 480 ? 10 : 14;
-      const newColumns = Math.floor(canvas.width / fontSize);
+      const isViewportCanvas = canvas.id === 'matrix-canvas';
+      let columns = 0;
+      let drops = [];
+      let fontSize = 14;
+      let lastTime = 0;
+      const FRAME_INTERVAL = 45;
 
-      const newDrops = [];
-      for (let i = 0; i < newColumns; i++) {
-        newDrops[i] = drops[i] !== undefined ? drops[i] : Math.random() * -80;
+      function resize() {
+        const width = isViewportCanvas ? window.innerWidth : canvas.clientWidth;
+        const height = isViewportCanvas ? window.innerHeight : canvas.clientHeight;
+        canvas.width = width;
+        canvas.height = height;
+        fontSize = width < 480 ? 10 : 14;
+        const newColumns = Math.floor(canvas.width / fontSize);
+
+        const newDrops = [];
+        for (let i = 0; i < newColumns; i++) {
+          newDrops[i] = drops[i] !== undefined ? drops[i] : Math.random() * -80;
+        }
+        columns = newColumns;
+        drops = newDrops;
       }
-      columns = newColumns;
-      drops = newDrops;
-    }
 
-    function draw(timestamp) {
-      animId = requestAnimationFrame(draw);
+      function draw(timestamp) {
+        requestAnimationFrame(draw);
 
-      if (timestamp - lastTime < FRAME_INTERVAL) return;
-      lastTime = timestamp;
+        if (timestamp - lastTime < FRAME_INTERVAL) return;
+        lastTime = timestamp;
 
-      // Trail fade
-      ctx.fillStyle = 'rgba(3, 7, 8, 0.055)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(3, 7, 8, 0.055)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
 
-      ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+        for (let i = 0; i < columns; i++) {
+          const char = charArray[Math.floor(Math.random() * charArray.length)];
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
 
-      for (let i = 0; i < columns; i++) {
-        const char = charArray[Math.floor(Math.random() * charArray.length)];
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
-
-        // Normal green character
-        const alpha = 0.25 + Math.random() * 0.25;
-        ctx.fillStyle = `rgba(0, 255, 102, ${alpha})`;
-        ctx.fillText(char, x, y);
-
-        // Occasional bright head character
-        if (Math.random() > 0.975) {
-          ctx.fillStyle = 'rgba(180, 255, 210, 0.85)';
+          ctx.fillStyle = `rgba(0, 255, 102, ${0.25 + Math.random() * 0.25})`;
           ctx.fillText(char, x, y);
-        }
 
-        // Reset column
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+          if (Math.random() > 0.975) {
+            ctx.fillStyle = 'rgba(180, 255, 210, 0.85)';
+            ctx.fillText(char, x, y);
+          }
+
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
         }
-        drops[i]++;
       }
+
+      resize();
+      window.addEventListener('resize', resize);
+      requestAnimationFrame(draw);
     }
 
     function init() {
-      resize();
-      window.addEventListener('resize', resize);
-      animId = requestAnimationFrame(draw);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      canvases.forEach(createRain);
     }
 
     return { init };

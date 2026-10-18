@@ -564,6 +564,7 @@ body {
 .skills-section {
   position: relative;
   z-index: 2;
+  isolation: isolate;
   padding: clamp(4.5rem, 9vw, 8rem) 5vw;
   border-top: 1px solid var(--border-low);
   background:
@@ -571,7 +572,19 @@ body {
     linear-gradient(180deg, rgba(3, 7, 8, 0.92), rgba(3, 7, 8, 0.98));
 }
 
+.skills-rain-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.52;
+  pointer-events: none;
+}
+
 .skills-container {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -621,7 +634,7 @@ body {
   padding: 1.25rem;
   border: 1px solid var(--border-mid);
   border-radius: 10px;
-  background: rgba(10, 14, 18, 0.88);
+  background: rgba(10, 14, 18, 0.76);
   box-shadow: inset 0 1px rgba(0, 255, 102, 0.025);
 }
 
@@ -661,7 +674,7 @@ body {
   padding: 0.75rem 0.8rem;
   border: 1px solid var(--border-mid);
   border-radius: 7px;
-  background: rgba(13, 17, 23, 0.9);
+  background: rgba(13, 17, 23, 0.82);
   color: #fff;
   font-family: var(--font-mono);
   text-align: left;
@@ -911,6 +924,10 @@ body {
   }
 
   #matrix-canvas {
+    display: none;
+  }
+
+  .skills-rain-canvas {
     display: none;
   }
 }
