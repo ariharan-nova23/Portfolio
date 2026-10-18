@@ -604,18 +604,42 @@ body {
 }
 
 .skills-title {
+  position: relative;
   margin: 0.8rem 0 0.65rem;
   color: #fff;
   font-family: var(--font-mono);
-  font-size: clamp(1.8rem, 4.5vw, 3.3rem);
+  font-size: clamp(1.9rem, 4.8vw, 3.6rem);
   font-weight: 700;
   letter-spacing: 0.045em;
   line-height: 1.2;
+  text-shadow: var(--glow-text);
+}
+
+.skills-title::before,
+.skills-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.skills-title::before {
+  color: #ff004c;
+  animation: glitchA 6s infinite linear;
+}
+
+.skills-title::after {
+  color: #00d4ff;
+  animation: glitchB 6s infinite linear;
 }
 
 .skills-title span {
   color: var(--green-neon);
-  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+  text-shadow: var(--glow-text);
 }
 
 .skills-hint {
