@@ -559,6 +559,317 @@ body {
 }
 
 /* ============================================
+   SKILLS — System Capability Matrix
+   ============================================ */
+.skills-section {
+  position: relative;
+  z-index: 2;
+  padding: clamp(4.5rem, 9vw, 8rem) 5vw;
+  border-top: 1px solid var(--border-low);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(0, 255, 102, 0.055), transparent 52%),
+    linear-gradient(180deg, rgba(3, 7, 8, 0.92), rgba(3, 7, 8, 0.98));
+}
+
+.skills-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.skills-header {
+  margin-bottom: 3rem;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+.skills-eyebrow,
+.skills-hint {
+  color: var(--green-dim);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+}
+
+.skills-title {
+  margin: 0.8rem 0 0.65rem;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 4.5vw, 3.3rem);
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  line-height: 1.2;
+}
+
+.skills-title span {
+  color: var(--green-neon);
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+.skills-hint {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.skill-module {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border-mid);
+  border-radius: 10px;
+  background: rgba(10, 14, 18, 0.88);
+  box-shadow: inset 0 1px rgba(0, 255, 102, 0.025);
+}
+
+.module-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.065em;
+}
+
+.module-heading span {
+  color: var(--green-neon);
+  font-size: 0.72rem;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+}
+
+.module-nodes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.skill-node {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  row-gap: 0.1rem;
+  min-width: 0;
+  min-height: 74px;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--border-mid);
+  border-radius: 7px;
+  background: rgba(13, 17, 23, 0.9);
+  color: #fff;
+  font-family: var(--font-mono);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.skill-node img {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  width: 1.85rem;
+  height: 1.85rem;
+  object-fit: contain;
+}
+
+.node-name {
+  overflow: hidden;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.node-tag {
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.56rem;
+  letter-spacing: 0.045em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.skill-node:hover {
+  border-color: var(--green-neon);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+  transform: translateY(-2px);
+}
+
+.skill-node.is-selected {
+  border-color: var(--green-neon);
+  background: rgba(0, 255, 102, 0.16);
+  box-shadow: inset 0 0 18px rgba(0, 255, 102, 0.055), 0 0 12px rgba(0, 255, 102, 0.12);
+}
+
+.skill-node.is-selected .node-name {
+  color: var(--green-neon);
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.35);
+}
+
+.skill-node:focus-visible {
+  outline: 2px solid var(--green-neon);
+  outline-offset: 3px;
+}
+
+.telemetry-terminal {
+  margin-top: 1.4rem;
+  overflow: hidden;
+  border: 1px solid var(--border-high);
+  border-radius: 10px;
+  background: rgba(7, 12, 14, 0.96);
+  box-shadow: 0 0 28px rgba(0, 255, 102, 0.07);
+  font-family: var(--font-mono);
+}
+
+.telemetry-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 46px;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-low);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.telemetry-titlebar h3 {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.telemetry-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green-neon);
+  box-shadow: 0 0 8px rgba(0, 255, 102, 0.75);
+}
+
+.telemetry-live {
+  color: var(--green-neon);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+
+.telemetry-body {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.7fr) 1.7fr;
+  gap: 1.5rem;
+  padding: 1.25rem 1.4rem;
+}
+
+.telemetry-label {
+  margin-bottom: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.61rem;
+  letter-spacing: 0.11em;
+}
+
+.telemetry-selection h4 {
+  margin-bottom: 0.55rem;
+  color: var(--green-neon);
+  font-size: 1.25rem;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.35);
+}
+
+.telemetry-category {
+  display: inline-block;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid var(--border-mid);
+  border-radius: 3px;
+  color: var(--green-dim);
+  font-size: 0.58rem;
+  letter-spacing: 0.045em;
+}
+
+.telemetry-details {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border-mid);
+}
+
+.telemetry-details > p:last-child {
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+
+.telemetry-status {
+  padding: 0.75rem 1.4rem;
+  border-top: 1px solid var(--border-low);
+  color: var(--green-dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 760px) {
+  .skills-section {
+    padding-right: 1.25rem;
+    padding-left: 1.25rem;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .skills-header {
+    margin-bottom: 2rem;
+  }
+
+  .skills-eyebrow {
+    font-size: 0.62rem;
+  }
+
+  .skills-hint {
+    font-size: 0.59rem;
+  }
+
+  .skill-module {
+    padding: 0.9rem;
+  }
+
+  .module-heading {
+    font-size: 0.68rem;
+  }
+
+  .module-nodes {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry-body {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+    padding: 1rem;
+  }
+
+  .telemetry-details {
+    padding-top: 1rem;
+    padding-left: 0;
+    border-top: 1px solid var(--border-mid);
+    border-left: 0;
+  }
+
+  .telemetry-titlebar h3 {
+    font-size: 0.62rem;
+  }
+
+  .telemetry-status {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    font-size: 0.56rem;
+  }
+}
+
+/* ============================================
    SCROLLBAR
    ============================================ */
 ::-webkit-scrollbar {

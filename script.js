@@ -243,6 +243,37 @@
   })();
 
   // ==========================================
+  // 6. SKILL NODE TELEMETRY
+  // ==========================================
+  const SkillTelemetry = (() => {
+    const grid = document.querySelector('.skills-grid');
+    const nameEl = document.getElementById('telemetry-name');
+    const categoryEl = document.getElementById('telemetry-category');
+    const descriptionEl = document.getElementById('telemetry-description');
+
+    if (!grid || !nameEl || !categoryEl || !descriptionEl) return { init() {} };
+
+    function init() {
+      grid.addEventListener('click', (event) => {
+        const node = event.target.closest('.skill-node');
+        if (!node || !grid.contains(node)) return;
+
+        grid.querySelectorAll('.skill-node').forEach((skillNode) => {
+          const selected = skillNode === node;
+          skillNode.classList.toggle('is-selected', selected);
+          skillNode.setAttribute('aria-pressed', String(selected));
+        });
+
+        nameEl.textContent = node.dataset.name;
+        categoryEl.textContent = node.dataset.category;
+        descriptionEl.textContent = node.dataset.details;
+      });
+    }
+
+    return { init };
+  })();
+
+  // ==========================================
   // INIT
   // ==========================================
   document.addEventListener('DOMContentLoaded', () => {
@@ -251,5 +282,6 @@
     TerminalReveal.init();
     CopyJSON.init();
     Parallax.init();
+    SkillTelemetry.init();
   });
 })();
