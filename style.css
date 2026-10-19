@@ -862,82 +862,25 @@ body {
   letter-spacing: 0.08em;
 }
 
-.skills-section.skills-motion-ready .skills-header,
-.skills-section.skills-motion-ready .skill-module,
-.skills-section.skills-motion-ready .telemetry-terminal {
-  opacity: 0;
-  pointer-events: none;
-  transition-property: opacity, transform;
-  transition-duration: 550ms;
-  transition-timing-function: var(--ease);
+.skills-section.skills-scroll-scrub .skills-header,
+.skills-section.skills-scroll-scrub .skill-module,
+.skills-section.skills-scroll-scrub .telemetry-terminal {
+  transition: none;
 }
 
-.skills-section.skills-motion-ready .skills-header {
-  transform: translateY(20px);
-  transition-delay: 0.04s;
+.skills-section.skills-scroll-scrub .skills-header {
+  opacity: var(--header-opacity, 0);
+  transform: translate3d(0, var(--header-y, 20px), 0);
 }
 
-.skills-section.skills-motion-ready .skill-module {
-  transform: translateX(-110vw);
+.skills-section.skills-scroll-scrub .skill-module {
+  opacity: var(--module-opacity, 0);
+  transform: translate3d(var(--module-x, -150px), 0, 0);
 }
 
-.skills-section.skills-motion-ready .skill-module:nth-child(2n) {
-  transform: translateX(110vw);
-}
-
-.skills-section.skills-motion-ready .skill-module:nth-child(1) {
-  transition-delay: 0.12s;
-}
-
-.skills-section.skills-motion-ready .skill-module:nth-child(2) {
-  transition-delay: 0.32s;
-}
-
-.skills-section.skills-motion-ready .skill-module:nth-child(3) {
-  transition-delay: 0.52s;
-}
-
-.skills-section.skills-motion-ready .skill-module:nth-child(4) {
-  transition-delay: 0.72s;
-}
-
-.skills-section.skills-motion-ready .telemetry-terminal {
-  transform: translateY(60px);
-  transition-delay: 1.35s;
-}
-
-.skills-section.skills-motion-ready.is-visible .skills-header,
-.skills-section.skills-motion-ready.is-visible .skill-module,
-.skills-section.skills-motion-ready.is-visible .telemetry-terminal {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(0, 0);
-}
-
-.skills-section.skills-motion-ready.is-visible .skills-header,
-.skills-section.skills-motion-ready.is-visible .skill-module,
-.skills-section.skills-motion-ready.is-visible .telemetry-terminal {
-  transition-delay: 0s;
-}
-
-.skills-section.skills-motion-ready.is-visible .skill-module:nth-child(1) {
-  transition-delay: 0.12s;
-}
-
-.skills-section.skills-motion-ready.is-visible .skill-module:nth-child(2) {
-  transition-delay: 0.32s;
-}
-
-.skills-section.skills-motion-ready.is-visible .skill-module:nth-child(3) {
-  transition-delay: 0.52s;
-}
-
-.skills-section.skills-motion-ready.is-visible .skill-module:nth-child(4) {
-  transition-delay: 0.72s;
-}
-
-.skills-section.skills-motion-ready.is-visible .telemetry-terminal {
-  transition-delay: 1.35s;
+.skills-section.skills-scroll-scrub .telemetry-terminal {
+  opacity: var(--terminal-opacity, 0);
+  transform: translate3d(0, var(--terminal-y, 80px), 0);
 }
 
 @media (max-width: 760px) {
@@ -1041,12 +984,4 @@ body {
     display: none;
   }
 
-  .skills-section.skills-motion-ready .skills-header,
-  .skills-section.skills-motion-ready .skill-module,
-  .skills-section.skills-motion-ready .telemetry-terminal {
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-    transition: none;
-  }
 }

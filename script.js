@@ -260,82 +260,62 @@
       text: element.textContent
     }));
     const decodeChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let decodeFrame = 0;
-
-    function restoreTitle() {
-      if (decodeFrame) cancelAnimationFrame(decodeFrame);
-      decodeFrame = 0;
-      titleSegments.forEach(({ element, text }) => {
-        element.textContent = text;
-      });
-    }
-
-    function decodeTitle() {
-      restoreTitle();
-      const totalChars = titleSegments.reduce((total, segment) => total + segment.text.length, 0);
-      const startTime = performance.now();
-      const duration = 780;
-
-      function animate(timestamp) {
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const settledChars = Math.floor(progress * totalChars);
-        let charIndex = 0;
-
-        titleSegments.forEach(({ element, text }) => {
-          element.textContent = Array.from(text, (char) => {
-            const isSettled = charIndex++ < settledChars;
-            if (char === ' ' || isSettled || progress === 1) return char;
-            return decodeChars[Math.floor(Math.random() * decodeChars.length)];
-          }).join('');
-        });
-
-        if (progress < 1) {
-          decodeFrame = requestAnimationFrame(animate);
-        } else {
-          decodeFrame = 0;
-        }
-      }
-
-      decodeFrame = requestAnimationFrame(animate);
-    }
+    const modules = Array.from(grid.querySelectorAll('.skill-module'));
+    const clamp = (value) => Math.max(0, Math.min(1, value));
+    const mapProgress = (progress, start, end) => clamp((progress - start) / (end - start));
 
     function init() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      section.classList.add('skills-motion-ready');
-      grid.inert = true;
-      terminal.inert = true;
+      section.classList.add('skills-scroll-scrub');
 
-      function updateVisibility() {
+      function updateProgress() {
         const bounds = section.getBoundingClientRect();
-        const visible = bounds.bottom > 0 && bounds.top < window.innerHeight;
-        if (visible === section.classList.contains('is-visible')) return;
+        const progress = clamp((window.innerHeight - bounds.top) / (window.innerHeight * 1.2));
+        const headerProgress = mapProgress(progress, 0.1, 0.35);
+        const topProgress = mapProgress(progress, 0.25, 0.5);
+        const lowerProgress = mapProgress(progress, 0.5, 0.75);
+        const terminalProgress = mapProgress(progress, 0.75, 1);
 
-        section.classList.toggle('is-visible', visible);
-        grid.inert = !visible;
-        terminal.inert = !visible;
+        section.style.setProperty('--header-opacity', String(headerProgress));
+        section.style.setProperty('--header-y', `${20 * (1 - headerProgress)}px`);
+        section.style.setProperty('--terminal-opacity', String(terminalProgress));
+        section.style.setProperty('--terminal-y', `${80 * (1 - terminalProgress)}px`);
+        titleSegments.forEach(({ element, text }) => {
+          const settledChars = Math.floor(headerProgress * text.length);
+          element.textContent = Array.from(text, (char, index) => {
+            if (char === ' ' || index < settledChars) return char;
+            const seed = (index * 17 + text.length * 7) % decodeChars.length;
+            return decodeChars[(seed + Math.floor(headerProgress * 5)) % decodeChars.length];
+          }).join('');
+        });
 
-        if (visible) {
-          decodeTitle();
-        } else {
-          restoreTitle();
-        }
+        modules.forEach((module, index) => {
+          const moduleProgress = index < 2 ? topProgress : lowerProgress;
+          const entersFromLeft = index % 2 === 0;
+          const offset = 150 * (1 - moduleProgress) * (entersFromLeft ? -1 : 1);
+          module.style.setProperty('--module-opacity', String(moduleProgress));
+          module.style.setProperty('--module-x', `${offset}px`);
+          module.inert = moduleProgress < 0.05;
+        });
+
+        terminal.inert = terminalProgress < 0.05;
       }
 
       let updateScheduled = false;
-      function scheduleVisibilityUpdate() {
+      function scheduleProgressUpdate() {
         if (updateScheduled) return;
         updateScheduled = true;
         requestAnimationFrame(() => {
           updateScheduled = false;
-          updateVisibility();
+          updateProgress();
         });
       }
 
-      window.addEventListener('scroll', scheduleVisibilityUpdate, { passive: true });
-      document.addEventListener('scroll', scheduleVisibilityUpdate, { passive: true, capture: true });
-      window.addEventListener('resize', scheduleVisibilityUpdate);
-      updateVisibility();
+      window.addEventListener('scroll', scheduleProgressUpdate, { passive: true });
+      document.addEventListener('scroll', scheduleProgressUpdate, { passive: true, capture: true });
+      window.addEventListener('resize', scheduleProgressUpdate);
+      updateProgress();
     }
 
     return { init };
