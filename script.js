@@ -245,7 +245,104 @@
   })();
 
   // ==========================================
-  // 6. SKILL NODE TELEMETRY
+  // 6. SKILLS SECTION ASSEMBLY
+  // ==========================================
+  const SkillsAssembly = (() => {
+    const section = document.querySelector('.skills-section');
+    const title = document.getElementById('skills-title');
+    const grid = section && section.querySelector('.skills-grid');
+    const terminal = section && section.querySelector('.telemetry-terminal');
+
+    if (!section || !title || !grid || !terminal) return { init() {} };
+
+    const titleSegments = Array.from(title.querySelectorAll('[data-decode-text]')).map((element) => ({
+      element,
+      text: element.textContent
+    }));
+    const decodeChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let decodeFrame = 0;
+
+    function restoreTitle() {
+      if (decodeFrame) cancelAnimationFrame(decodeFrame);
+      decodeFrame = 0;
+      titleSegments.forEach(({ element, text }) => {
+        element.textContent = text;
+      });
+    }
+
+    function decodeTitle() {
+      restoreTitle();
+      const totalChars = titleSegments.reduce((total, segment) => total + segment.text.length, 0);
+      const startTime = performance.now();
+      const duration = 780;
+
+      function animate(timestamp) {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const settledChars = Math.floor(progress * totalChars);
+        let charIndex = 0;
+
+        titleSegments.forEach(({ element, text }) => {
+          element.textContent = Array.from(text, (char) => {
+            const isSettled = charIndex++ < settledChars;
+            if (char === ' ' || isSettled || progress === 1) return char;
+            return decodeChars[Math.floor(Math.random() * decodeChars.length)];
+          }).join('');
+        });
+
+        if (progress < 1) {
+          decodeFrame = requestAnimationFrame(animate);
+        } else {
+          decodeFrame = 0;
+        }
+      }
+
+      decodeFrame = requestAnimationFrame(animate);
+    }
+
+    function init() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      section.classList.add('skills-motion-ready');
+      grid.inert = true;
+      terminal.inert = true;
+
+      function updateVisibility() {
+        const bounds = section.getBoundingClientRect();
+        const visible = bounds.bottom > 0 && bounds.top < window.innerHeight;
+        if (visible === section.classList.contains('is-visible')) return;
+
+        section.classList.toggle('is-visible', visible);
+        grid.inert = !visible;
+        terminal.inert = !visible;
+
+        if (visible) {
+          decodeTitle();
+        } else {
+          restoreTitle();
+        }
+      }
+
+      let updateScheduled = false;
+      function scheduleVisibilityUpdate() {
+        if (updateScheduled) return;
+        updateScheduled = true;
+        requestAnimationFrame(() => {
+          updateScheduled = false;
+          updateVisibility();
+        });
+      }
+
+      window.addEventListener('scroll', scheduleVisibilityUpdate, { passive: true });
+      document.addEventListener('scroll', scheduleVisibilityUpdate, { passive: true, capture: true });
+      window.addEventListener('resize', scheduleVisibilityUpdate);
+      updateVisibility();
+    }
+
+    return { init };
+  })();
+
+  // ==========================================
+  // 7. SKILL NODE TELEMETRY
   // ==========================================
   const SkillTelemetry = (() => {
     const grid = document.querySelector('.skills-grid');
@@ -284,6 +381,7 @@
     TerminalReveal.init();
     CopyJSON.init();
     Parallax.init();
+    SkillsAssembly.init();
     SkillTelemetry.init();
   });
 })();
