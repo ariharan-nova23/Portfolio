@@ -259,10 +259,60 @@
       element,
       text: element.textContent
     }));
-    const decodeChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const decodeChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノマミムメモヤユヨラリルレロワヲン';
     const modules = Array.from(grid.querySelectorAll('.skill-module'));
     const clamp = (value) => Math.max(0, Math.min(1, value));
     const mapProgress = (progress, start, end) => clamp((progress - start) / (end - start));
+    let decodeFrame = 0;
+    let titleDecoding = false;
+    let titleScrambled = false;
+
+    function setScrambledTitle() {
+      titleSegments.forEach(({ element, text }, segmentIndex) => {
+        element.textContent = Array.from(text, (char, charIndex) => {
+          if (char === ' ') return char;
+          const seed = (segmentIndex * 13 + charIndex * 7) % decodeChars.length;
+          return decodeChars[seed];
+        }).join('');
+      });
+      titleScrambled = true;
+    }
+
+    function decodeTitle() {
+      if (decodeFrame) cancelAnimationFrame(decodeFrame);
+      titleScrambled = false;
+      const totalChars = titleSegments.reduce((total, segment) => total + segment.text.length, 0);
+      const startTime = performance.now();
+      const duration = 780;
+
+      function animate(timestamp) {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const settledChars = Math.floor(progress * totalChars);
+        let charIndex = 0;
+
+        titleSegments.forEach(({ element, text }) => {
+          element.textContent = Array.from(text, (char) => {
+            const isSettled = charIndex++ < settledChars;
+            if (char === ' ' || isSettled || progress === 1) return char;
+            return decodeChars[Math.floor(Math.random() * decodeChars.length)];
+          }).join('');
+        });
+
+        if (progress < 1) {
+          decodeFrame = requestAnimationFrame(animate);
+        } else {
+          decodeFrame = 0;
+        }
+      }
+
+      decodeFrame = requestAnimationFrame(animate);
+    }
+
+    function resetTitle() {
+      if (decodeFrame) cancelAnimationFrame(decodeFrame);
+      decodeFrame = 0;
+      setScrambledTitle();
+    }
 
     function init() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -281,14 +331,16 @@
         section.style.setProperty('--header-y', `${20 * (1 - headerProgress)}px`);
         section.style.setProperty('--terminal-opacity', String(terminalProgress));
         section.style.setProperty('--terminal-y', `${80 * (1 - terminalProgress)}px`);
-        titleSegments.forEach(({ element, text }) => {
-          const settledChars = Math.floor(headerProgress * text.length);
-          element.textContent = Array.from(text, (char, index) => {
-            if (char === ' ' || index < settledChars) return char;
-            const seed = (index * 17 + text.length * 7) % decodeChars.length;
-            return decodeChars[(seed + Math.floor(headerProgress * 5)) % decodeChars.length];
-          }).join('');
-        });
+        const shouldDecodeTitle = headerProgress > 0;
+        if (shouldDecodeTitle && !titleDecoding) {
+          titleDecoding = true;
+          decodeTitle();
+        } else if (!shouldDecodeTitle && titleDecoding) {
+          titleDecoding = false;
+          resetTitle();
+        } else if (!titleDecoding && !titleScrambled) {
+          setScrambledTitle();
+        }
 
         modules.forEach((module, index) => {
           const moduleProgress = index < 2 ? topProgress : lowerProgress;
